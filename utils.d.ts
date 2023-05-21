@@ -1,12 +1,14 @@
-export declare type Mutable<T> = {
+export type Mutable<T> = {
   -readonly [P in keyof T]: T[P]
 }
 
-export declare type Nullable<T> = T | null
+export type Nullable<T> = T | null
 
-export declare type Arrayable<T> = T | T[]
+export type Arrayable<T> = T | T[]
 
-export declare type Awaitable<T> = Promise<T> | T
+export type Promiseable<T> = T | Promise<T>
+
+export type Awaitable<T> = Promise<T> | T
 
 export type DeepReadonly<T> = {
   readonly [P in keyof T]: T[P] extends (infer U)[]
@@ -34,3 +36,30 @@ export type DeepPartial<T> = {
 export type TimeoutHandle = ReturnType<typeof setTimeout>
 
 export type IntervalHandle = ReturnType<typeof setInterval>
+
+export type AnyFunction = (...args: any) => any
+
+export type AsyncFunciton<T extends AnyFunction> = (
+  ...args: Parameters<T>
+) => Awaited<ReturnType<T>>
+
+export type AnyAsyncFunction = AsyncFunciton<AnyFunction>
+
+export type PartialPick<T, K extends keyof T> = Partial<
+  Pick<T, K>
+>
+
+export type RequiredPick<T, K extends keyof T> = Required<
+  Pick<T, K>
+>
+
+export type ReadonlyPick<T, K extends keyof T> = Readonly<
+  Pick<T, K>
+>
+
+export type UnPromise<T> = T extends Promise<infer P>
+  ? P
+  : T
+
+export type UnPromiseReturnType<T extends AnyFunction> =
+  UnPromise<ReturnType<T>>
