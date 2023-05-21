@@ -1,5 +1,5 @@
 # ts-mixin
 
 ```bash
-npm i --save-dev ts-mixin
+npm i --save-dev ts-mixin-types
 ```
